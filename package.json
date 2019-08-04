@@ -1,0 +1,40 @@
+{
+  "name": "uiuc_cs_498_ddv",
+  "version": "1.0.0",
+  "description": "CS 498 DDV Assignment 7-3-3: Create a Narrative Visualization",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "start:dev": "webpack-dev-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FraBle/uiuc_cs_498_ddv.git"
+  },
+  "keywords": [],
+  "author": "Frank Blechschmidt",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FraBle/uiuc_cs_498_ddv/issues"
+  },
+  "homepage": "https://github.com/FraBle/uiuc_cs_498_ddv#readme",
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "babel-loader": "^8.0.6",
+    "copy-webpack-plugin": "^5.0.4",
+    "css-loader": "^3.1.0",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.39.1",
+    "webpack-cli": "^3.3.6",
+    "webpack-dev-server": "^3.7.2"
+  },
+  "dependencies": {
+    "core-js": "^3.1.4",
+    "d3": "^5.9.7",
+    "d3-tip": "^0.9.1",
+    "regenerator-runtime": "^0.13.3"
+  }
+}

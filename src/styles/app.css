@@ -1,0 +1,111 @@
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+.hidden {
+  display: none;
+}
+
+#barChart,
+#scatterplot,
+#worldMap {
+  height: calc(100% - 108px);
+  width: 100%;
+}
+
+.progress {
+  background-color: #e1f5fe;
+}
+
+.progress .indeterminate,
+.progress .determinate {
+  background-color: #4fc3f7;
+}
+
+/*
+* General SVG theme
+*/
+
+svg text {
+  font-size: 12px;
+  fill: #eceff1;
+}
+
+svg .label {
+  font-size: 14px;
+}
+
+svg path {
+  stroke: #cfd8dc;
+}
+
+svg line {
+  stroke: #cfd8dc;
+}
+
+svg .grid path {
+  stroke-width: 0;
+}
+
+svg .grid .tick line {
+  stroke: #90a4ae;
+  stroke-opacity: 0.3;
+}
+
+svg text.value {
+  font-size: 10px;
+}
+
+svg line.limit {
+  stroke: #80d8ff;
+  stroke-width: 3;
+  stroke-dasharray: 3 6;
+}
+
+/*
+* Bar Chart Theme
+*/
+
+#barChart .bar {
+  fill: #039be5;
+}
+
+#barChart text.divergence {
+  font-size: 11px;
+  fill: #cfd8dc;
+}
+
+/*
+* Scatterplot Theme
+*/
+
+#scatterplot circle {
+  fill: #039be5;
+  opacity: 0.8;
+  stroke: #cfd8dc;
+}
+
+/*
+* World Map Theme
+*/
+
+#worldMapTooltip {
+  position: absolute;
+}
+
+.d3-tip {
+  background: white;
+  border: solid gray;
+  border-radius: 0.5em;
+  padding: 0.25em;
+}
+.d3-tip.down {
+  -webkit-transform: translate(0, 2em);
+  transform: translate(0, 2em);
+}
