@@ -1,6 +1,5 @@
 import * as d3 from "d3";
 import d3Tip from "d3-tip";
-d3.tip = d3Tip;
 
 class WorldMap {
   constructor() {
@@ -104,8 +103,7 @@ class WorldMap {
   }
 
   createTooltip() {
-    return d3
-      .tip()
+    return d3Tip()
       .attr("class", "d3-tip")
       .offset([-10, 0])
       .html(
