@@ -44,5 +44,6 @@ module.exports = {
   ],
   devServer: {
     contentBase: "./docs"
-  }
+  },
+  devtool: "source-map"
 };
