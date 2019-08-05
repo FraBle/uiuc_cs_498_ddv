@@ -1,6 +1,6 @@
 import * as d3 from "d3";
 import d3Tip from "d3-tip";
-import {legendColor} from "d3-svg-legend";
+import { legendColor } from "d3-svg-legend";
 
 class WorldMap {
   constructor() {
@@ -9,7 +9,8 @@ class WorldMap {
     this.legend = this.svg
       .append("g")
       .attr("transform", `translate(${this.margin / 4}, ${this.margin / 2})`);
-    this.height = this.svg.node().getBoundingClientRect().height;
+    this.height =
+      this.svg.node().getBoundingClientRect().height - this.margin * 8;
     this.width =
       this.svg.node().getBoundingClientRect().width - this.margin * 4;
   }
@@ -21,7 +22,7 @@ class WorldMap {
     );
     const projection = d3
       .geoMercator()
-      .scale(this.width / 2 / Math.PI)
+      .scale(this.width / 2.25 / Math.PI)
       .translate([this.width / 2, this.height / 2]);
     this.path = d3.geoPath().projection(projection);
     this.countries = topojson.feature(world, world.objects.countries).features;
@@ -34,7 +35,10 @@ class WorldMap {
     // Draw the Map based on the path created from the world atlas projection
     this.map = this.svg
       .append("g")
-      .attr("transform",`translate(${this.margin * 4}, 0)`);
+      .attr(
+        "transform",
+        `translate(${this.margin * 4}, ${this.margin * 4})`
+      );
     this.map
       .selectAll("path")
       .data(chartData)
@@ -92,18 +96,18 @@ class WorldMap {
 
   tooltipDirection(x, y, width) {
     const upper = y < 50;
-    const left = x < 50;
+    const left = x < 300;
     const right = x > width - 200;
 
     if (upper && left && x !== 0) {
       return "se";
-    } else if (upper && right) {
+    } else if (upper && right && x !== 0) {
       return "sw";
     } else if (upper) {
       return "s";
     } else if (right) {
       return "w";
-    } else if (left && x !== 0) {
+    } else if (left) {
       return "e";
     } else {
       return "n";
@@ -131,7 +135,7 @@ class WorldMap {
       );
   }
 
-  createLegend(scale){
+  createLegend(scale) {
     this.legend.call(
       legendColor()
         .scale(scale)
@@ -168,7 +172,7 @@ class WorldMap {
       .entries(d3.keys(groupedCountries));
 
     const colorScale = d3
-      .scaleSequential(d3.interpolatePuRd)
+      .scaleSequential(d3.interpolateReds)
       .domain([
         _.min(_.map(countryData, c => c.value.medianCompensation)),
         _.mean(_.map(countryData, c => c.value.medianCompensation)) * 2
