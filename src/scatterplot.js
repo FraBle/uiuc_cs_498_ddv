@@ -8,9 +8,9 @@ class Scatterplot {
     this.legend = this.svg
       .append("g")
       .attr("transform", `translate(${this.margin / 4}, ${this.margin / 2})`);
-    this.height =
-      this.svg.node().getBoundingClientRect().height - this.margin;
-    this.width = this.svg.node().getBoundingClientRect().width - this.margin * 6;
+    this.height = this.svg.node().getBoundingClientRect().height - this.margin;
+    this.width =
+      this.svg.node().getBoundingClientRect().width - this.margin * 6;
     this.chart = this.svg
       .append("g")
       .attr("transform", `translate(${this.margin * 6}, 0)`);
@@ -28,7 +28,7 @@ class Scatterplot {
     // Create chart elements
     this.createCircles(chartData);
     this.createAxes();
-    this.render(data);
+    this.render(data, 0);
   }
 
   generateChartData(data) {
@@ -127,18 +127,16 @@ class Scatterplot {
       .attr("opacity", d => (d.value.respondants < minimum ? 0 : 1))
       .attr(
         "x",
-        d =>
-          xScale(d.value.avgYearsCodePro) + rScale(d.value.respondants) + 2
+        d => xScale(d.value.avgYearsCodePro) + rScale(d.value.respondants) + 2
       )
       .attr(
         "y",
         d =>
-          yScale(d.value.medianCompensation) +
-          rScale(d.value.respondants) / 2
+          yScale(d.value.medianCompensation) + rScale(d.value.respondants) / 2
       );
   }
 
-  updateLegend(){
+  updateLegend() {
     this.legend.call(
       legendSize()
         .scale(this.rScale)
@@ -152,11 +150,11 @@ class Scatterplot {
     );
   }
 
-  filterByMinimum(chartData, minimum){
+  filterByMinimum(chartData, minimum) {
     return _.map(chartData, d => ({
       key: d.key,
       value:
-        (d.value.respondants > minimum)
+        d.value.respondants > minimum
           ? d.value
           : {
               avgYearsCodePro: d.value.avgYearsCodePro,
@@ -170,7 +168,10 @@ class Scatterplot {
     const { xScale, yScale, rScale } = this;
 
     // Update chart data and domains according to new data
-    const chartData = this.filterByMinimum(this.generateChartData(data), minimum);
+    const chartData = this.filterByMinimum(
+      this.generateChartData(data),
+      minimum
+    );
     const { xDomain, yDomain, rDomain } = this.getDomains(chartData);
 
     // Scale the domain according to the new data
