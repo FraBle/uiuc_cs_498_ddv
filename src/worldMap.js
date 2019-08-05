@@ -35,10 +35,7 @@ class WorldMap {
     // Draw the Map based on the path created from the world atlas projection
     this.map = this.svg
       .append("g")
-      .attr(
-        "transform",
-        `translate(${this.margin * 4}, ${this.margin * 4})`
-      );
+      .attr("transform", `translate(${this.margin * 4}, ${this.margin * 4})`);
     this.map
       .selectAll("path")
       .data(chartData)
@@ -49,7 +46,7 @@ class WorldMap {
       .attr("stroke-linejoin", "round")
       .style("opacity", 0.8)
       .attr("d", this.path);
-    this.render(data);
+    this.render(data, 0);
   }
 
   generateChartData() {
@@ -149,7 +146,20 @@ class WorldMap {
     );
   }
 
-  render(data) {
+  filterByMinimum(chartData, minimum) {
+    return _.map(chartData, d => d.responses > minimum ? d: {
+        avgYearsCodePro: d.avgYearsCodePro,
+        geometry: d.geometry,
+        id: d.id,
+        medianCompensation: d.medianCompensation,
+        name: d.name,
+        properties: d.properties,
+        responses: 0,
+        type: d.type
+      })
+  }
+
+  render(data, minimum) {
     const {
       countries,
       countryNames,
@@ -217,6 +227,7 @@ class WorldMap {
       []
     );
 
+
     // Create Legend
     this.createLegend(colorScale);
 
@@ -226,8 +237,8 @@ class WorldMap {
 
     this.map
       .selectAll("path")
-      .data(chartData)
-      .attr("fill", d => colorScale(d.medianCompensation))
+      .data(this.filterByMinimum(chartData, minimum))
+      .attr("fill", d => colorScale(d.responses > 0 ? d.medianCompensation : 0))
       .on("mouseover", function(d, i) {
         // Highlight country boundaries
         d3.select(this)

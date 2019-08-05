@@ -41,7 +41,7 @@ class BarChart {
     // Create chart elements
     this.createBars(chartData, total);
     this.createAxes();
-    this.render(data);
+    this.render(data, 0);
   }
 
   generateChartData(data) {
@@ -156,9 +156,17 @@ class BarChart {
         chart.selectAll(".divergence").remove();
       });
   }
-  render(data) {
+
+  filterByMinimum(chartData, minimum){
+    return _.map(chartData, d => ({
+      key: d.key,
+      value: d.value > minimum ? d.value : 0
+    }));
+  }
+
+  render(data, minimum) {
     const chartData = this.generateChartData(data);
-    this.updateBars(chartData, data.length);
+    this.updateBars(this.filterByMinimum(chartData, minimum), data.length);
   }
   createBars(chartData, total) {
     const { svg, chart, xScale, yScale, height, width } = this;

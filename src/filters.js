@@ -42,9 +42,12 @@ class Filters {
       })
     });
     this.responsesFilter.noUiSlider.on("set", function(values) {
-      dataProvider.minResponsesFilter = values[1];
+      dataProvider.setMinResponsesFilter(values[0]);
       for (let chart of charts) {
-        chart.render(dataProvider.getData());
+        chart.render(
+          dataProvider.getData(),
+          dataProvider.getMinResponsesFilter()
+        );
       }
     });
   }
@@ -69,7 +72,10 @@ class Filters {
       dataProvider.getAgeFilter().min = values[0];
       dataProvider.getAgeFilter().max = values[1];
       for (let chart of charts) {
-        chart.render(dataProvider.getData());
+        chart.render(
+          dataProvider.getData(),
+          dataProvider.getMinResponsesFilter()
+        );
       }
     });
   }
@@ -110,7 +116,10 @@ class Filters {
       dataProvider.getCompensationFilter().min = values[0];
       dataProvider.getCompensationFilter().max = values[1];
       for (let chart of charts) {
-        chart.render(dataProvider.getData());
+        chart.render(
+          dataProvider.getData(),
+          dataProvider.getMinResponsesFilter()
+        );
       }
     });
   }
@@ -140,7 +149,10 @@ class Filters {
       link.addEventListener("change", function(event) {
         dataProvider.getGenderFilter()[this.value] = this.checked;
         for (let chart of charts) {
-          chart.render(dataProvider.getData());
+          chart.render(
+            dataProvider.getData(),
+            dataProvider.getMinResponsesFilter()
+          );
         }
         event.preventDefault();
       });

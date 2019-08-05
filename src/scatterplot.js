@@ -106,7 +106,7 @@ class Scatterplot {
       .attr("class", "annotation")
       .text(d => d.key);
   }
-  updateCircles(chartData) {
+  updateCircles(chartData, minimum) {
     const { chart, xScale, yScale, rScale } = this;
     chart
       .selectAll("circle")
@@ -114,6 +114,7 @@ class Scatterplot {
       .transition()
       .ease(d3.easeCubic)
       .duration(1000)
+      .attr("opacity", d => (d.value.respondants < minimum ? 0 : 1))
       .attr("cx", d => xScale(d.value.avgYearsCodePro))
       .attr("cy", d => yScale(d.value.medianCompensation))
       .attr("r", d => rScale(d.value.respondants));
@@ -123,6 +124,7 @@ class Scatterplot {
       .transition()
       .ease(d3.easeCubic)
       .duration(1000)
+      .attr("opacity", d => (d.value.respondants < minimum ? 0 : 1))
       .attr(
         "x",
         d =>
@@ -150,11 +152,25 @@ class Scatterplot {
     );
   }
 
-  render(data) {
+  filterByMinimum(chartData, minimum){
+    return _.map(chartData, d => ({
+      key: d.key,
+      value:
+        (d.value.respondants > minimum)
+          ? d.value
+          : {
+              avgYearsCodePro: d.value.avgYearsCodePro,
+              medianCompensation: d.value.medianCompensation,
+              respondants: 1
+            }
+    }));
+  }
+
+  render(data, minimum) {
     const { xScale, yScale, rScale } = this;
 
     // Update chart data and domains according to new data
-    const chartData = this.generateChartData(data);
+    const chartData = this.filterByMinimum(this.generateChartData(data), minimum);
     const { xDomain, yDomain, rDomain } = this.getDomains(chartData);
 
     // Scale the domain according to the new data
@@ -163,7 +179,7 @@ class Scatterplot {
     rScale.domain(rDomain);
 
     // Update chart content
-    this.updateCircles(chartData);
+    this.updateCircles(chartData, minimum);
     this.updateAxes();
     this.updateLegend();
   }
