@@ -1,11 +1,17 @@
 import * as d3 from "d3";
 import d3Tip from "d3-tip";
+import {legendColor} from "d3-svg-legend";
 
 class WorldMap {
   constructor() {
     this.svg = d3.select("#worldMap");
+    this.margin = 40;
+    this.legend = this.svg
+      .append("g")
+      .attr("transform", `translate(${this.margin / 4}, ${this.margin / 2})`);
     this.height = this.svg.node().getBoundingClientRect().height;
-    this.width = this.svg.node().getBoundingClientRect().width;
+    this.width =
+      this.svg.node().getBoundingClientRect().width - this.margin * 4;
   }
 
   async initialize(data) {
@@ -26,7 +32,9 @@ class WorldMap {
     const chartData = this.generateChartData();
 
     // Draw the Map based on the path created from the world atlas projection
-    this.map = this.svg.append("g");
+    this.map = this.svg
+      .append("g")
+      .attr("transform",`translate(${this.margin * 4}, 0)`);
     this.map
       .selectAll("path")
       .data(chartData)
@@ -123,8 +131,27 @@ class WorldMap {
       );
   }
 
+  createLegend(scale){
+    this.legend.call(
+      legendColor()
+        .scale(scale)
+        .cells(10)
+        .shape("circle")
+        .shapePadding(15)
+        .title("Median Compensation ($):")
+        .labelOffset(20)
+        .labelFormat(d3.format(",.0f"))
+        .orient("vertical")
+    );
+  }
+
   render(data) {
-    const {countries, countryNames, countryNameConversion, tooltipDirection} = this;
+    const {
+      countries,
+      countryNames,
+      countryNameConversion,
+      tooltipDirection
+    } = this;
     const groupedCountries = _.groupBy(data, d => d.Country);
     const countryData = d3
       .nest()
@@ -141,7 +168,7 @@ class WorldMap {
       .entries(d3.keys(groupedCountries));
 
     const colorScale = d3
-      .scaleSequential(d3.interpolatePuBu)
+      .scaleSequential(d3.interpolatePuRd)
       .domain([
         _.min(_.map(countryData, c => c.value.medianCompensation)),
         _.mean(_.map(countryData, c => c.value.medianCompensation)) * 2
@@ -185,6 +212,9 @@ class WorldMap {
       },
       []
     );
+
+    // Create Legend
+    this.createLegend(colorScale);
 
     // Create tooltip
     const tip = this.createTooltip();

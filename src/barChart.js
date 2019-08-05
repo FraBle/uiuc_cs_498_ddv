@@ -16,12 +16,17 @@ class BarChart {
     const total = data.length;
 
     // Create x scale
-    const xDomain = this.getXDomain(data);
     this.xScale = d3
       .scaleBand()
       .range([0, this.width])
       .padding(0.3)
-      .domain(xDomain);
+      .domain(
+        _(data)
+          .flatMap(d => d["LanguageWorkedWith"])
+          .uniq()
+          .value()
+          .sort((a, b) => d3.ascending(a, b))
+      );
 
     // Create y scale
     this.yScale = d3
@@ -29,21 +34,14 @@ class BarChart {
       .range([this.height, 0])
       .domain([0, 100]);
 
-    // Generate the data for the chart
+    // Generate the data for the the initial draw
     const chartData = this.generateChartData(data);
+    this.languages = _.map(chartData, d => d.key);
 
     // Create chart elements
     this.createBars(chartData, total);
     this.createAxes();
     this.render(data);
-  }
-
-  getXDomain(data) {
-    return _(data)
-      .flatMap(d => d["LanguageWorkedWith"])
-      .uniq()
-      .value()
-      .sort((a, b) => d3.ascending(a, b));
   }
 
   generateChartData(data) {
@@ -66,7 +64,12 @@ class BarChart {
       .entries(d3.keys(groupedData));
   }
 
-  updateBars(chart, chartData, xScale, yScale, height, total) {
+  updateBars(chartData, total) {
+    chartData = _.map(this.languages, language => ({
+      key: language,
+      value: _.get(_.find(chartData, d => d.key === language), "value", 0)
+    }));
+    const { svg, chart, xScale, yScale, height, width } = this;
     chartData = chartData.sort((a, b) => d3.ascending(a.key, b.key));
     chart
       .selectAll(".bar")
@@ -85,8 +88,8 @@ class BarChart {
       .transition()
       .ease(d3.easeCubic)
       .duration(1000)
-      .attr("y", item => yScale((item.value / total) * 100) + 11)
       .attr("x", item => xScale(item.key) + xScale.bandwidth() / 2)
+      .attr("y", item => yScale((item.value / total) * 100) + 11)
       .text(
         item =>
           `${wNumb({
@@ -94,38 +97,13 @@ class BarChart {
             decimals: 0
           }).to((item.value / total) * 100)}`
       );
-  }
-  render(data) {
-    const { chart, xScale, yScale, height } = this;
-    const total = data.length;
-    const chartData = this.generateChartData(data);
-    this.updateBars(chart, chartData, xScale, yScale, height, total);
-  }
-  createBars(chartData, total) {
-    const { chart, xScale, yScale, height, width } = this;
 
-    // Sort the chart data alphabetically
-    chartData = chartData.sort((a, b) => d3.ascending(a.key, b.key));
+    const barGroups = chart.selectAll("g").data(chartData);
 
-    // Create the SVG groups for the bars
-    const barGroups = chart
-      .selectAll()
-      .data(chartData)
-      .enter()
-      .append("g");
-
-    // Create the actual bars
     barGroups
-      .append("rect")
-      .data(chartData)
-      .attr("class", "bar")
-      .attr("x", item => xScale(item.key))
-      .attr("y", item => yScale((item.value / total) * 100))
-      .attr("height", item => height - yScale((item.value / total) * 100))
-      .attr("width", xScale.bandwidth())
       .on("mouseenter", function(actual, i) {
         // Hide the value of the current bar
-        d3.selectAll("#barChart .value").attr("opacity", 0);
+        svg.selectAll(".value").attr("opacity", 0);
         // Make the bar slightly bigger
         d3.select(this)
           .transition()
@@ -166,8 +144,7 @@ class BarChart {
           });
       })
       .on("mouseleave", function() {
-        d3.selectAll("#barChart .value").attr("opacity", 1);
-
+        svg.selectAll(".value").attr("opacity", 1);
         d3.select(this)
           .transition()
           .duration(300)
@@ -178,6 +155,33 @@ class BarChart {
         chart.selectAll(".limit").remove();
         chart.selectAll(".divergence").remove();
       });
+  }
+  render(data) {
+    const chartData = this.generateChartData(data);
+    this.updateBars(chartData, data.length);
+  }
+  createBars(chartData, total) {
+    const { svg, chart, xScale, yScale, height, width } = this;
+
+    // Sort the chart data alphabetically
+    chartData = chartData.sort((a, b) => d3.ascending(a.key, b.key));
+
+    // Create the SVG groups for the bars
+    const barGroups = chart
+      .selectAll()
+      .data(chartData)
+      .enter()
+      .append("g");
+
+    // Create the actual bars
+    barGroups
+      .append("rect")
+      .data(chartData)
+      .attr("class", "bar")
+      .attr("x", item => xScale(item.key))
+      .attr("y", item => yScale((item.value / total) * 100))
+      .attr("height", item => height - yScale((item.value / total) * 100))
+      .attr("width", xScale.bandwidth());
 
     // Create the bar labels
     barGroups

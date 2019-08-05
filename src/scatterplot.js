@@ -1,15 +1,19 @@
 import * as d3 from "d3";
+import {legendSize} from "d3-svg-legend";
 
 class Scatterplot {
   constructor() {
     this.svg = d3.select("#scatterplot");
-    this.margin = 80;
+    this.margin = 40;
+    this.legend = this.svg
+      .append("g")
+      .attr("transform", `translate(${this.margin / 4}, ${this.margin / 2})`);
     this.height =
-      this.svg.node().getBoundingClientRect().height - 2 * this.margin;
-    this.width = this.svg.node().getBoundingClientRect().width - this.margin;
+      this.svg.node().getBoundingClientRect().height - this.margin;
+    this.width = this.svg.node().getBoundingClientRect().width - this.margin * 6;
     this.chart = this.svg
       .append("g")
-      .attr("transform", `translate(${this.margin}, ${this.margin})`);
+      .attr("transform", `translate(${this.margin * 6}, 0)`);
   }
 
   initialize(data) {
@@ -51,8 +55,8 @@ class Scatterplot {
       .entries(d3.keys(groupedData));
   }
   createCircles(chartData) {
-    const { svg, chart, xScale, yScale, rScale, height, margin } = this;
-    svg
+    const { chart, xScale, yScale, rScale, height, margin } = this;
+    chart
       .selectAll("circle")
       .data(chartData)
       .enter()
@@ -67,8 +71,8 @@ class Scatterplot {
           .attr("r", d => rScale(d.value.respondants) * 1.2);
 
         // Create a line for reference
-        const y = yScale(language.value.medianCompensation) - margin;
-        const x = xScale(language.value.avgYearsCodePro) - margin;
+        const y = yScale(language.value.medianCompensation);
+        const x = xScale(language.value.avgYearsCodePro);
         chart
           .append("line")
           .attr("class", "limit")
@@ -94,7 +98,7 @@ class Scatterplot {
           .attr("r", d => rScale(d.value.respondants));
         chart.selectAll(".limit").remove();
       });
-    svg
+    chart
       .selectAll("text.annotation")
       .data(chartData)
       .enter()
@@ -103,8 +107,8 @@ class Scatterplot {
       .text(d => d.key);
   }
   updateCircles(chartData) {
-    const { svg, xScale, yScale, rScale } = this;
-    svg
+    const { chart, xScale, yScale, rScale } = this;
+    chart
       .selectAll("circle")
       .data(chartData)
       .transition()
@@ -113,7 +117,7 @@ class Scatterplot {
       .attr("cx", d => xScale(d.value.avgYearsCodePro))
       .attr("cy", d => yScale(d.value.medianCompensation))
       .attr("r", d => rScale(d.value.respondants));
-    svg
+    chart
       .selectAll("text.annotation")
       .data(chartData)
       .transition()
@@ -132,6 +136,20 @@ class Scatterplot {
       );
   }
 
+  updateLegend(){
+    this.legend.call(
+      legendSize()
+        .scale(this.rScale)
+        .cells([1000, 10000, 100000, 1000000])
+        .shape("circle")
+        .shapePadding(15)
+        .title("Legend (Responses):")
+        .labelOffset(20)
+        .labelFormat(d3.format(","))
+        .orient("vertical")
+    );
+  }
+
   render(data) {
     const { xScale, yScale, rScale } = this;
 
@@ -147,6 +165,7 @@ class Scatterplot {
     // Update chart content
     this.updateCircles(chartData);
     this.updateAxes();
+    this.updateLegend();
   }
   createAxes() {
     // X Axis
@@ -211,12 +230,12 @@ class Scatterplot {
   }
   getDomains(chartData) {
     const xDomain = [
-      _.min(_.map(chartData, c => c.value.avgYearsCodePro)) * 0.9,
-      _.max(_.map(chartData, c => c.value.avgYearsCodePro))
+      _.min(_.map(chartData, c => c.value.avgYearsCodePro)) * 0.95,
+      _.max(_.map(chartData, c => c.value.avgYearsCodePro)) * 1.05
     ];
     const yDomain = [
-      _.min(_.map(chartData, c => c.value.medianCompensation)),
-      _.max(_.map(chartData, c => c.value.medianCompensation)) * 1.2
+      _.min(_.map(chartData, c => c.value.medianCompensation)) * 0.95,
+      _.max(_.map(chartData, c => c.value.medianCompensation)) * 1.05
     ];
     const rDomain = [
       _.min(_.map(chartData, c => c.value.respondants)),

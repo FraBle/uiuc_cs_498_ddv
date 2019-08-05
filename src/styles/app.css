@@ -28,6 +28,16 @@ main {
   background-color: #4fc3f7;
 }
 
+#compensation-filter .noUi-tooltip span{
+  font-size: 9px;
+}
+
+#gender-filter span{
+  font-size: 1rem;
+  line-height: 1.5rem;
+  height: 1.5rem;
+}
+
 /*
 * General SVG theme
 */
@@ -85,10 +95,16 @@ svg line.limit {
 * Scatterplot Theme
 */
 
-#scatterplot circle {
+#scatterplot circle,
+#scatterplot-legend circle {
   fill: #039be5;
   opacity: 0.8;
   stroke: #cfd8dc;
+}
+
+#scatterplot-legend text {
+  font-size: 12px;
+  fill: #01579b;
 }
 
 /*

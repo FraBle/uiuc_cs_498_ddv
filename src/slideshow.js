@@ -64,8 +64,9 @@ class Slideshow {
     progressBar.className = "determinate";
     progressBar.setAttribute("style", "width:100%;");
 
-    document.querySelector("#progress-title").innerHTML =
-      "Loading the data... finished :)";
+    document
+      .querySelector("#progress-container")
+      .classList.add("scale-out");
   }
 }
 

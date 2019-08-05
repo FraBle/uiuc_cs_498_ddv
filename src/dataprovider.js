@@ -1,58 +1,24 @@
 class DataProvider {
   constructor(data) {
-    this._type = "DataProvider";
     this._data = data;
-
-    const ageMin = d3.min(data, function(d) {
-      return d["Age"] != "NA" ? +d["Age"] : null;
-    });
-    const ageMax = d3.max(data, function(d) {
-      return d["Age"] != "NA" ? +d["Age"] : null;
-    });
-
-    const compensationMin = d3.min(data, function(d) {
-      return d["ConvertedComp"] != "NA" ? +d["ConvertedComp"] : null;
-    });
-    const compensationMax = d3.max(data, function(d) {
-      return d["ConvertedComp"] != "NA" ? +d["ConvertedComp"] : null;
-    });
-    const genders = _.transform(
-      _(data)
-        .flatMap(d => d["Gender"])
-        .uniq()
-        .value(),
-      (obj, gender) => (obj[gender] = true),
-      {}
-    );
-
-    // Domain values stay the same after initialization
-    this._domain = {
-      age: {
-        min: ageMin,
-        max: ageMax
-      },
-      compensation: {
-        min: compensationMin,
-        max: compensationMax
-      },
-      gender: genders,
-      programmingLanguage: _(data)
-        .flatMap(d => d["LanguageWorkedWith"])
-        .uniq()
-        .value()
-    };
-
-    // Filter values change by user selection
     this._filter = {
       age: {
-        min: ageMin,
-        max: ageMax
+        min: d3.min(data, d => (d["Age"] != "NA" ? +d["Age"] : null)),
+        max: d3.max(data, d => (d["Age"] != "NA" ? +d["Age"] : null))
       },
       compensation: {
-        min: compensationMin,
-        max: compensationMax
+        min: d3.min(data, d => (d["ConvertedComp"] != "NA" ? +d["ConvertedComp"] : null)),
+        max: d3.max(data, d => (d["ConvertedComp"] != "NA" ? +d["ConvertedComp"] : null))
       },
-      gender: genders
+      gender: _.transform(
+        _(data)
+          .flatMap(d => d["Gender"])
+          .uniq()
+          .value(),
+        (obj, gender) => (obj[gender] = true),
+        {}
+      ),
+      minResponses: 0
     };
   }
 
@@ -73,6 +39,14 @@ class DataProvider {
     );
   }
 
+  get minResponsesFilter() {
+    return this._filter.minResponses;
+  }
+
+  set minResponsesFilter(value) {
+    this._filter.minResponses = value;
+  }
+
   getAgeFilter() {
     return this._filter.age;
   }
@@ -83,30 +57,6 @@ class DataProvider {
 
   getGenderFilter() {
     return this._filter.gender;
-  }
-
-  getAgeDomain() {
-    return this._domain.age;
-  }
-
-  getCompensationDomain() {
-    return this._domain.compensation;
-  }
-
-  getProgrammingLanguageDomain() {
-    return this._domain.programmingLanguage;
-  }
-
-  getAvgYearsCodeProDomain() {
-    return this._domain.avgYearsCodePro;
-  }
-
-  getMedianCompensationDomain() {
-    return this._domain.medianCompensation;
-  }
-
-  getResponsesDomain() {
-    return this._domain.responses;
   }
 }
 

@@ -2,18 +2,19 @@
   "name": "uiuc_cs_498_ddv",
   "version": "1.0.0",
   "description": "CS 498 DDV Assignment 7-3-3: Create a Narrative Visualization",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "build": "webpack --mode production",
-    "start:dev": "webpack-dev-server"
+    "clean": "rimraf docs",
+    "build": "npm run clean && webpack --mode production --config webpack.prod.config.js",
+    "start:dev": "webpack-dev-server --config webpack.dev.config.js --progress --colors"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/FraBle/uiuc_cs_498_ddv.git"
+    "url": "https://github.com/FraBle/uiuc_cs_498_ddv"
   },
   "keywords": [],
   "author": "Frank Blechschmidt",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/FraBle/uiuc_cs_498_ddv/issues"
   },
@@ -23,18 +24,20 @@
     "@babel/preset-env": "^7.5.5",
     "babel-loader": "^8.0.6",
     "copy-webpack-plugin": "^5.0.4",
+    "core-js": "^3.1.4",
     "css-loader": "^3.1.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
+    "regenerator-runtime": "^0.13.3",
+    "rimraf": "^2.6.3",
     "style-loader": "^0.23.1",
     "webpack": "^4.39.1",
     "webpack-cli": "^3.3.6",
     "webpack-dev-server": "^3.7.2"
   },
   "dependencies": {
-    "core-js": "^3.1.4",
     "d3": "^5.9.7",
-    "d3-tip": "^0.9.1",
-    "regenerator-runtime": "^0.13.3"
+    "d3-svg-legend": "^2.25.6",
+    "d3-tip": "^0.9.1"
   }
 }

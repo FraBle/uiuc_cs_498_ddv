@@ -2,23 +2,50 @@ class Filters {
   constructor(dataProvider, charts) {
     this.dataProvider = dataProvider;
     this.charts = charts;
+    this.responsesFilter = document.querySelector("#responses-filter");
     this.ageFilter = document.querySelector("#age-filter");
     this.compensationFilter = document.querySelector("#compensation-filter");
     this.genderFilter = document.querySelector("#gender-filter");
   }
 
   initialize() {
+    this.initializeResponsesFilter();
     this.initializeAgeFilter();
     this.initializeCompensationFilter();
     this.initializeGenderFilter();
   }
 
   reset() {
+    this.responsesFilter.noUiSlider.reset();
     this.ageFilter.noUiSlider.reset();
     this.compensationFilter.noUiSlider.reset();
-    this.genderFilter.forEach(input => {
+    this.genderFilter.querySelectorAll("input").forEach(input => {
       input.checked = true;
       input.dispatchEvent(new Event("change"));
+    });
+  }
+
+  initializeResponsesFilter() {
+    const { dataProvider, charts } = this;
+    this.responsesFilter.innerHTML = "";
+    noUiSlider.create(this.responsesFilter, {
+      start: 0,
+      connect: "lower",
+      step: 1,
+      orientation: "horizontal",
+      range: {
+        min: 0,
+        max: 100
+      },
+      format: wNumb({
+        decimals: 0
+      })
+    });
+    this.responsesFilter.noUiSlider.on("set", function(values) {
+      dataProvider.minResponsesFilter = values[1];
+      for (let chart of charts) {
+        chart.render(dataProvider.getData());
+      }
     });
   }
 
@@ -46,7 +73,6 @@ class Filters {
       }
     });
   }
-
   initializeCompensationFilter() {
     const { dataProvider, charts } = this;
     this.compensationFilter.innerHTML = "";
@@ -56,7 +82,21 @@ class Filters {
         Math.round(dataProvider.getCompensationFilter().max)
       ],
       connect: true,
-      step: 1,
+      step: 10000,
+      tooltips: [
+        wNumb({
+          decimals: 0,
+          encoder: v => v / 1000,
+          prefix: "$",
+          suffix: "k"
+        }),
+        wNumb({
+          decimals: 0,
+          encoder: v => v / 1000,
+          prefix: "$",
+          suffix: "k"
+        })
+      ],
       orientation: "horizontal",
       range: {
         min: dataProvider.getCompensationFilter().min,

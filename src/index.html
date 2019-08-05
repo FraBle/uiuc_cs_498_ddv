@@ -2,7 +2,9 @@
 <html class="no-js" lang="">
   <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>
+      CS 498 DDV: Exploring the Stack Overflow Developer Survey from 2019
+    </title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
@@ -27,7 +29,11 @@
       href="https://cdn.jsdelivr.net/gh/Dogfalo/materialize@master/extras/noUiSlider/nouislider.css"
       crossorigin="anonymous"
     />
-    <link rel="icon" type="image/png" href="http://identitystandards.illinois.edu/favicon.png">
+    <link
+      rel="icon"
+      type="image/png"
+      href="http://identitystandards.illinois.edu/favicon.png"
+    />
   </head>
 
   <body>
@@ -54,10 +60,11 @@
               <div class="row">
                 <div class="col s12">
                   <div
-                    class="card-panel light-blue darken-2"
+                    id="progress-container"
+                    class="card-panel light-blue darken-2 scale-transition"
                     style="margin-bottom: 0; padding-top: 0.25rem; padding-bottom: 0.25rem;"
                   >
-                    <h6 class="white-text" id="progress-title">
+                    <h6 class="white-text">
                       Loading the data...
                     </h6>
                     <div class="progress">
@@ -145,147 +152,65 @@
             </div>
           </div>
           <div class="carousel-item light-blue darken-4">
-            <div class="row" style="margin: 0; height:100%; min-height:100%;">
-              <div class="col s3">
-                <h5 class="center white-text">
-                  Preference of Programming Languages
-                </h5>
-                <div
-                  class="card-panel blue-grey lighten-5"
-                  style="padding: 0.25rem; margin-bottom: 0.5rem;"
-                >
-                  <h6>Data</h6>
-                  <p>
-                    This chart visualizes the preference of programming
-                    languages in comparison to the overflow responses.
-                  </p>
-                  <p>
-                    It is based on answers to the following question from the
-                    survey: Which of the following programming, scripting, and
-                    markup languages have you done extensive development work in
-                    over the past year? (It was possible to select multiple
-                    languages)
-                  </p>
-                </div>
-                <div class="divider"></div>
-                <div
-                  class="card-panel blue-grey lighten-5"
-                  style="padding: 0.25rem;"
-                >
-                  <h6>Interactivity</h6>
-                  <p>
-                    As soon as you hover over an individual bar, it will be
-                    highlighted and a reference line will be displayed. The
-                    other bar's labels will be updated to show the divergence to
-                    the currently selected bar.
-                  </p>
-                  <p>
-                    Don't forget to play with the filters on the right ;)
-                  </p>
+            <div
+              style="height: calc(100% - 108px); min-height: calc(100% - 108px);"
+            >
+              <div class="row">
+                <div class="col s12">
+                  <h5 class="center white-text">
+                    Popularity of Programming Languages
+                  </h5>
                 </div>
               </div>
-              <div
-                class="col s9"
-                style="margin: 0; height:100%; min-height:100%;"
-              >
-                <svg id="barChart"></svg>
+              <div class="row" style="margin: 0; height:100%; min-height:100%;">
+                <div
+                  class="col s12"
+                  style="margin: 0; height:100%; min-height:100%;"
+                >
+                  <svg id="barChart"></svg>
+                </div>
               </div>
             </div>
           </div>
           <div class="carousel-item light-blue darken-4">
-            <div class="row" style="margin: 0; height:100%; min-height:100%;">
-              <div class="col s3">
-                <h5 class="center white-text">
-                  Profession vs. Compensation
-                </h5>
-                <div
-                  class="card-panel blue-grey lighten-5"
-                  style="padding: 0.25rem; margin-bottom: 0.5rem;"
-                >
-                  <h6>Data</h6>
-                  <p>
-                    This chart visualizes the preference of programming
-                    languages in comparison to the overflow responses.
-                  </p>
-                  <p>
-                    It is based on answers to the following question from the
-                    survey: Which of the following programming, scripting, and
-                    markup languages have you done extensive development work in
-                    over the past year? (It was possible to select multiple
-                    languages)
-                  </p>
-                </div>
-                <div class="divider"></div>
-                <div
-                  class="card-panel blue-grey lighten-5"
-                  style="padding: 0.25rem;"
-                >
-                  <h6>Interactivity</h6>
-                  <p>
-                    As soon as you hover over an individual bar, it will be
-                    highlighted and a reference line will be displayed. The
-                    other bar's labels will be updated to show the divergence to
-                    the currently selected bar.
-                  </p>
-                  <p>
-                    Don't forget to play with the filters on the right ;)
-                  </p>
+            <div
+              style="height: calc(100% - 108px); min-height: calc(100% - 108px);"
+            >
+              <div class="row">
+                <div class="col s12">
+                  <h5 class="center white-text">
+                    Impact on Compensation
+                  </h5>
                 </div>
               </div>
-              <div
-                class="col s9"
-                style="margin: 0; height:100%; min-height:100%;"
-              >
-                <svg id="scatterplot"></svg>
+              <div class="row" style="margin: 0; height:100%; min-height:100%;">
+                <div
+                  class="col s12"
+                  style="margin: 0; height:100%; min-height:100%;"
+                >
+                  <svg id="scatterplot"></svg>
+                </div>
               </div>
             </div>
           </div>
           <div class="carousel-item light-blue darken-4">
-            <div class="row" style="margin: 0; height:100%; min-height:100%;">
-              <div class="col s3">
-                <h5 class="center white-text">
-                  Profession vs. Compensation
-                </h5>
-                <div
-                  class="card-panel blue-grey lighten-5"
-                  style="padding: 0.25rem; margin-bottom: 0.5rem;"
-                >
-                  <h6>The Data</h6>
-                  <p>
-                    This map visualizes the income difference based on country. It uses a
-                    sequential interpolated color scale based on the median compensation of the every country.
-                  </p>
-                  <p>
-                    A tooltip reveals more data on a selected country and the coloring of a country changes based on the filter criteria.
-                  </p>
-                </div>
-                <div class="divider"></div>
-                <div
-                  class="card-panel blue-grey lighten-5"
-                  style="padding: 0.25rem;"
-                >
-                  <h6>Color Scale</h6>
-                  <p>
-                    As soon as you hover over an individual bar, it will be
-                    highlighted and a reference line will be displayed. The
-                    other bar's labels will be updated to show the divergence to
-                    the currently selected bar.
-                  </p>
-                  <p>
-                    Don't forget to play with the filters on the right ;)
-                  </p>
+            <div
+              style="height: calc(100% - 108px); min-height: calc(100% - 108px);"
+            >
+              <div class="row">
+                <div class="col s12">
+                  <h5 class="center white-text">
+                    Impact of Location
+                  </h5>
                 </div>
               </div>
-              <div
-                class="col s9"
-                style="margin: 0; height:100%; min-height:100%;"
-              >
+              <div class="row" style="margin: 0; height:100%; min-height:100%;">
                 <div
-                  class="card-panel blue lighten-5 hidden"
-                  id="worldMapTooltip"
-                  style="padding: 0.5rem;"
-                ></div>
-                <svg id="worldMap"></svg>
+                  class="col s12"
+                  style="margin: 0; height:100%; min-height:100%;"
+                >
+                  <svg id="worldMap"></svg>
+                </div>
               </div>
             </div>
           </div>
@@ -308,7 +233,35 @@
         <h5 class="center">Filters</h5>
         <div
           class="card-panel blue-grey lighten-5"
-          style="padding-top: 0.5rem; padding-bottom: 0.5rem;"
+          style="padding-top: .5rem; padding-bottom: .5rem; margin: .5rem 0 .5rem 0;
+"
+        >
+          <div class="section" style="padding: 0;"><h6>Min. Responses</h6></div>
+          <div class="section">
+            <div id="responses-filter">
+              <div class="center-align">
+                <div class="preloader-wrapper small active">
+                  <div class="spinner-layer spinner-blue-only">
+                    <div class="circle-clipper left">
+                      <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                      <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                      <div class="circle"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div
+          class="card-panel blue-grey lighten-5"
+          style="padding-top: .5rem; padding-bottom: .5rem; margin: .5rem 0 .5rem 0;
+"
         >
           <div class="section" style="padding: 0;"><h6>Age</h6></div>
           <div class="section">
@@ -334,7 +287,7 @@
         <div class="divider"></div>
         <div
           class="card-panel blue-grey lighten-5"
-          style="padding-top: 0.5rem; padding-bottom: 0.5rem; margin-top: 1rem;"
+          style="padding-top: 0.5rem; padding-bottom: 0.5rem; margin: .5rem 0 .5rem 0;"
         >
           <div class="section" style="padding: 0;">
             <h6>Compensation (in $)</h6>
@@ -362,7 +315,7 @@
         <div class="divider"></div>
         <div
           class="card-panel blue-grey lighten-5"
-          style="padding-top: 0.5rem; margin-top: 1rem; margin-bottom: 0; padding-bottom: 0.5rem;"
+          style="padding-top: .5rem; padding-bottom: .5rem; margin: .5rem 0 .5rem 0;"
         >
           <div class="section" id="gender-filter" style="padding: 0;">
             <h6>Gender</h6>
@@ -384,7 +337,6 @@
             </div>
           </div>
         </div>
-        <div class="divider"></div>
         <div class="section center-align">
           <a
             class="waves-effect waves-light btn-large disabled"
@@ -428,6 +380,10 @@
       integrity="sha256-tHoAPGoNdhIR28YHl9DWLzeRfdwigkH7OCBXMrHXhoM="
       crossorigin="anonymous"
     ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js" integrity="sha256-DCW2G+HXRTaX80n/cuqXdLtWpE59kVHmSBzwPRBHe/o=" crossorigin="anonymous"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"
+      integrity="sha256-DCW2G+HXRTaX80n/cuqXdLtWpE59kVHmSBzwPRBHe/o="
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
