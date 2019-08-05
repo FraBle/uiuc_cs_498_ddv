@@ -1,3 +1,6 @@
+import * as noUiSlider from "../misc/nouislider.min";
+import * as wNumb from "wnumb";
+
 class Filters {
   constructor(dataProvider, charts) {
     this.dataProvider = dataProvider;
@@ -35,19 +38,16 @@ class Filters {
       orientation: "horizontal",
       range: {
         min: 0,
-        max: 100
+        max: 100,
       },
       format: wNumb({
-        decimals: 0
-      })
+        decimals: 0,
+      }),
     });
     this.responsesFilter.noUiSlider.on("set", function(values) {
       dataProvider.setMinResponsesFilter(values[0]);
       for (let chart of charts) {
-        chart.render(
-          dataProvider.getData(),
-          dataProvider.getMinResponsesFilter()
-        );
+        chart.render(dataProvider.getData(), dataProvider.getMinResponsesFilter());
       }
     });
   }
@@ -62,20 +62,17 @@ class Filters {
       orientation: "horizontal",
       range: {
         min: dataProvider.getAgeFilter().min,
-        max: dataProvider.getAgeFilter().max
+        max: dataProvider.getAgeFilter().max,
       },
       format: wNumb({
-        decimals: 0
-      })
+        decimals: 0,
+      }),
     });
     this.ageFilter.noUiSlider.on("set", function(values) {
       dataProvider.getAgeFilter().min = values[0];
       dataProvider.getAgeFilter().max = values[1];
       for (let chart of charts) {
-        chart.render(
-          dataProvider.getData(),
-          dataProvider.getMinResponsesFilter()
-        );
+        chart.render(dataProvider.getData(), dataProvider.getMinResponsesFilter());
       }
     });
   }
@@ -85,7 +82,7 @@ class Filters {
     noUiSlider.create(this.compensationFilter, {
       start: [
         Math.round(dataProvider.getCompensationFilter().min),
-        Math.round(dataProvider.getCompensationFilter().max)
+        Math.round(dataProvider.getCompensationFilter().max),
       ],
       connect: true,
       step: 10000,
@@ -94,32 +91,29 @@ class Filters {
           decimals: 0,
           encoder: v => v / 1000,
           prefix: "$",
-          suffix: "k"
+          suffix: "k",
         }),
         wNumb({
           decimals: 0,
           encoder: v => v / 1000,
           prefix: "$",
-          suffix: "k"
-        })
+          suffix: "k",
+        }),
       ],
       orientation: "horizontal",
       range: {
         min: dataProvider.getCompensationFilter().min,
-        max: dataProvider.getCompensationFilter().max
+        max: dataProvider.getCompensationFilter().max,
       },
       format: wNumb({
-        decimals: 0
-      })
+        decimals: 0,
+      }),
     });
     this.compensationFilter.noUiSlider.on("set", function(values) {
       dataProvider.getCompensationFilter().min = values[0];
       dataProvider.getCompensationFilter().max = values[1];
       for (let chart of charts) {
-        chart.render(
-          dataProvider.getData(),
-          dataProvider.getMinResponsesFilter()
-        );
+        chart.render(dataProvider.getData(), dataProvider.getMinResponsesFilter());
       }
     });
   }
@@ -149,10 +143,7 @@ class Filters {
       link.addEventListener("change", function(event) {
         dataProvider.getGenderFilter()[this.value] = this.checked;
         for (let chart of charts) {
-          chart.render(
-            dataProvider.getData(),
-            dataProvider.getMinResponsesFilter()
-          );
+          chart.render(dataProvider.getData(), dataProvider.getMinResponsesFilter());
         }
         event.preventDefault();
       });

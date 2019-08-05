@@ -3,16 +3,12 @@ class DataProvider {
     this._data = data;
     this._filter = {
       age: {
-        min: d3.min(data, d => (d["Age"] != "NA" ? +d["Age"] : null)),
-        max: d3.max(data, d => (d["Age"] != "NA" ? +d["Age"] : null))
+        min: +d3.min(data, d => d["Age"]),
+        max: +d3.max(data, d => d["Age"]),
       },
       compensation: {
-        min: d3.min(data, d =>
-          d["ConvertedComp"] != "NA" ? +d["ConvertedComp"] : null
-        ),
-        max: d3.max(data, d =>
-          d["ConvertedComp"] != "NA" ? +d["ConvertedComp"] : null
-        )
+        min: +d3.min(data, d => d["ConvertedComp"]),
+        max: +d3.max(data, d => d["ConvertedComp"]),
       },
       gender: _.transform(
         _(data)
@@ -22,7 +18,7 @@ class DataProvider {
         (obj, gender) => (obj[gender] = true),
         {}
       ),
-      minResponses: 0
+      minResponses: 0,
     };
   }
 

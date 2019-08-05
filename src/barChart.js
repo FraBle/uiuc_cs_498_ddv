@@ -1,11 +1,11 @@
 import * as d3 from "d3";
+import * as wNumb from "wnumb";
 
 class BarChart {
   constructor() {
     this.svg = d3.select("#barChart");
     this.margin = 80;
-    this.height =
-      this.svg.node().getBoundingClientRect().height - 2 * this.margin;
+    this.height = this.svg.node().getBoundingClientRect().height - 2 * this.margin;
     this.width = this.svg.node().getBoundingClientRect().width - this.margin;
     this.chart = this.svg
       .append("g")
@@ -67,7 +67,7 @@ class BarChart {
   updateBars(chartData, total) {
     chartData = _.map(this.languages, language => ({
       key: language,
-      value: _.get(_.find(chartData, d => d.key === language), "value", 0)
+      value: _.get(_.find(chartData, d => d.key === language), "value", 0),
     }));
     const { svg, chart, xScale, yScale, height, width } = this;
     chartData = chartData.sort((a, b) => d3.ascending(a.key, b.key));
@@ -94,7 +94,7 @@ class BarChart {
         item =>
           `${wNumb({
             suffix: "%",
-            decimals: 0
+            decimals: 0,
           }).to((item.value / total) * 100)}`
       );
 
@@ -138,7 +138,7 @@ class BarChart {
               ? wNumb({
                   prefix: divergence > 0 ? "+" : "",
                   suffix: "%",
-                  decimals: 0
+                  decimals: 0,
                 }).to(divergence)
               : "";
           });
@@ -157,10 +157,10 @@ class BarChart {
       });
   }
 
-  filterByMinimum(chartData, minimum){
+  filterByMinimum(chartData, minimum) {
     return _.map(chartData, d => ({
       key: d.key,
-      value: d.value > minimum ? d.value : 0
+      value: d.value > minimum ? d.value : 0,
     }));
   }
 

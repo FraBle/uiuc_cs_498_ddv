@@ -1,320 +1,200 @@
 <!DOCTYPE html>
 <html class="no-js" lang="">
-  <head>
-    <meta charset="utf-8" />
-    <title>
-      CS 498 DDV: Exploring the Stack Overflow Developer Survey from 2019
-    </title>
-    <meta name="description" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
-      integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU="
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-      integrity="sha256-OweaP/Ic6rsV+lysfyS4h+LM6sRwuO3euTYfr6M124g="
-      crossorigin="anonymous"
-      media="screen,projection"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      href="https://identitystandards.illinois.edu/favicon.png"
-    />
-  </head>
 
-  <body>
-    <div class="row" style="margin: 0;">
-      <div class="col s10" style="padding: 0;">
-        <div
-          class="carousel carousel-slider"
-          style="height:calc(100vh - 50px); min-height:calc(100vh - 50px);"
-        >
-          <div class="carousel-fixed-item center">
-            <a
-              class="btn-floating light-blue darken-2 disabled"
-              id="button-left"
-              ><i class="material-icons">keyboard_arrow_left</i></a
-            >
-            <a
-              class="btn-floating light-blue darken-2 disabled"
-              id="button-right"
-              ><i class="material-icons">keyboard_arrow_right</i></a
-            >
-          </div>
-          <div class="carousel-item light-blue darken-4">
-            <div class="container">
-              <div class="row">
-                <div class="col s12">
-                  <div
-                    id="progress-container"
-                    class="card-panel light-blue darken-2 scale-transition"
-                    style="margin-bottom: 0; padding-top: 0.25rem; padding-bottom: 0.25rem;"
-                  >
-                    <h6 class="white-text">
-                      Loading the data...
+<head>
+  <meta charset="utf-8" />
+  <title>
+    CS 498 DDV: Exploring the Stack Overflow Developer Survey from 2019
+  </title>
+  <meta name="description" content="" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+    integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    integrity="sha256-OweaP/Ic6rsV+lysfyS4h+LM6sRwuO3euTYfr6M124g=" crossorigin="anonymous" media="screen,projection" />
+  <link rel="icon" type="image/png" href="https://identitystandards.illinois.edu/favicon.png" />
+</head>
+
+<body>
+  <div class="row" style="margin: 0;">
+    <div class="col s10" style="padding: 0;">
+      <div class="carousel carousel-slider" style="height:calc(100vh - 50px); min-height:calc(100vh - 50px);">
+        <div class="carousel-fixed-item center">
+          <a class="btn-floating light-blue darken-2 disabled" id="button-left"><i
+              class="material-icons">keyboard_arrow_left</i></a>
+          <a class="btn-floating light-blue darken-2 disabled" id="button-right"><i
+              class="material-icons">keyboard_arrow_right</i></a>
+        </div>
+        <div class="carousel-item light-blue darken-4">
+          <div class="container">
+            <div class="row">
+              <div class="col s12">
+                <div id="progress-container" class="card-panel light-blue darken-2 scale-transition"
+                  style="margin-bottom: 0; padding-top: 0.25rem; padding-bottom: 0.25rem;">
+                  <h6 class="white-text">
+                    Loading the data...
+                  </h6>
+                  <div class="progress">
+                    <div class="indeterminate"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s12">
+                <div class="card">
+                  <div class="card-content" style="padding-top: 0.25rem;">
+                    <h2 style="margin-top: 1rem;">
+                      Interactive Slideshow for CS 498 DDV
+                    </h2>
+                    <h6 style="margin-bottom: 1rem;">
+                      By Frank Blechschmidt
                     </h6>
-                    <div class="progress">
-                      <div class="indeterminate"></div>
-                    </div>
+                    <p style="margin-bottom: 0.1rem;">
+                      This interactive slideshow explores the results of the
+                      <a target="_blank" href="https://insights.stackoverflow.com/survey/2019">Stack Overflow Developer
+                        Survey from 2019</a>.
+                    </p>
+                    <p>
+                      It lets the viewer explore different facets to answer
+                      the question ”How to Succeed in a Career in Tech?”. It
+                      highlights which programming languages have the highest
+                      popularity, how this translates to compensation based on
+                      work experience, and finally explores the compensation
+                      in a global context.
+                    </p>
                   </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col s12">
-                  <div class="card">
-                    <div class="card-content" style="padding-top: 0.25rem;">
-                      <h2 style="margin-top: 1rem;">
-                        Interactive Slideshow for CS 498 DDV
-                      </h2>
-                      <h6 style="margin-bottom: 1rem;">
-                        By Frank Blechschmidt
-                      </h6>
-                      <p style="margin-bottom: 0.1rem;">
-                        This interactive slideshow explores the results of the
-                        <a
-                          target="_blank"
-                          href="https://insights.stackoverflow.com/survey/2019"
-                          >Stack Overflow Developer Survey from 2019</a
-                        >.
-                      </p>
+                  <div class="card-tabs">
+                    <ul class="tabs tabs-fixed-width">
+                      <li class="tab">
+                        <a href="#part1" class="active">Data Set</a>
+                      </li>
+                      <li class="tab"><a href="#part2">Filtering</a></li>
+                    </ul>
+                  </div>
+                  <div class="card-content grey lighten-4">
+                    <div id="part1">
+                      <blockquote style="margin-top: 0;" class="grey-text text-darken-2">
+                        Stack Overflow’s annual Developer Survey is the
+                        largest and most comprehensive survey of people who
+                        code around the world. Each year, we field a survey
+                        covering everything from developers’ favorite
+                        technologies to their job preferences. This year marks
+                        the ninth year we’ve published our annual Developer
+                        Survey results, and nearly 90,000 developers took the
+                        20-minute survey earlier this year.
+                      </blockquote>
+                      <a href="https://insights.stackoverflow.com/survey/2019#overview" target="_blank">Source: Stack
+                        Overflow</a>
+                      <p></p>
+                    </div>
+                    <div id="part2">
                       <p>
-                        It lets the viewer explore different facets to answer
-                        the question ”How to Succeed in a Career in Tech?”. It
-                        highlights which programming languages have the highest
-                        popularity, how this translates to compensation based on
-                        work experience, and finally explores the compensation
-                        in a global context.
+                        The data of every chart can be filtered by age,
+                        compensation in USD and gender. These filters are
+                        implemented to work across all charts: Their values
+                        affect the visualized data on all 3 slides of this
+                        interactive slideshow simultaneously.
+                      </p>
+                      <p style="font-style:italic;">
+                        Note: The filtering and crunching of the numbers is
+                        happening in the browser and can be quite
+                        compute-intense since the data set contains almost
+                        90,000 responses.
                       </p>
                     </div>
-                    <div class="card-tabs">
-                      <ul class="tabs tabs-fixed-width">
-                        <li class="tab">
-                          <a href="#part1" class="active">Data Set</a>
-                        </li>
-                        <li class="tab"><a href="#part2">Filtering</a></li>
-                      </ul>
-                    </div>
-                    <div class="card-content grey lighten-4">
-                      <div id="part1">
-                        <blockquote
-                          style="margin-top: 0;"
-                          class="grey-text text-darken-2"
-                        >
-                          Stack Overflow’s annual Developer Survey is the
-                          largest and most comprehensive survey of people who
-                          code around the world. Each year, we field a survey
-                          covering everything from developers’ favorite
-                          technologies to their job preferences. This year marks
-                          the ninth year we’ve published our annual Developer
-                          Survey results, and nearly 90,000 developers took the
-                          20-minute survey earlier this year.
-                        </blockquote>
-                        <a
-                          href="https://insights.stackoverflow.com/survey/2019#overview"
-                          target="_blank"
-                          >Source: Stack Overflow</a
-                        >
-                        <p></p>
-                      </div>
-                      <div id="part2">
-                        <p>
-                          The data of every chart can be filtered by age,
-                          compensation in USD and gender. These filters are
-                          implemented to work across all charts: Their values
-                          affect the visualized data on all 3 slides of this
-                          interactive slideshow simultaneously.
-                        </p>
-                        <p style="font-style:italic;">
-                          Note: The filtering and crunching of the numbers is
-                          happening in the browser and can be quite
-                          compute-intense since the data set contains almost
-                          90,000 responses.
-                        </p>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="carousel-item light-blue darken-4">
-            <div
-              style="height: calc(100% - 108px); min-height: calc(100% - 108px);"
-            >
-              <div class="row">
-                <div class="col s12">
-                  <h5 class="center white-text">
-                    Popularity of Programming Languages
-                  </h5>
-                </div>
+        </div>
+        <div class="carousel-item light-blue darken-4">
+          <div style="height: calc(100% - 108px); min-height: calc(100% - 108px);">
+            <div class="row">
+              <div class="col s12">
+                <h5 class="center white-text">
+                  Popularity of Programming Languages
+                </h5>
               </div>
-              <div class="row" style="margin: 0; height:100%; min-height:100%;">
-                <div
-                  class="col s12"
-                  style="margin: 0; height:100%; min-height:100%;"
-                >
-                  <svg id="barChart"></svg>
-                </div>
+            </div>
+            <div class="row" style="margin: 0; height:100%; min-height:100%;">
+              <div class="col s12" style="margin: 0; height:100%; min-height:100%;">
+                <svg id="barChart"></svg>
               </div>
             </div>
           </div>
-          <div class="carousel-item light-blue darken-4">
-            <div
-              style="height: calc(100% - 108px); min-height: calc(100% - 108px);"
-            >
-              <div class="row">
-                <div class="col s12">
-                  <h5 class="center white-text">
-                    Impact on Compensation
-                  </h5>
-                </div>
-              </div>
-              <div class="row" style="margin: 0; height:100%; min-height:100%;">
-                <div
-                  class="col s12"
-                  style="margin: 0; height:100%; min-height:100%;"
-                >
-                  <svg id="scatterplot"></svg>
-                </div>
+        </div>
+        <div class="carousel-item light-blue darken-4">
+          <div style="height: calc(100% - 108px); min-height: calc(100% - 108px);">
+            <div class="row">
+              <div class="col s12">
+                <h5 class="center white-text">
+                  Impact on Compensation
+                </h5>
               </div>
             </div>
-          </div>
-          <div class="carousel-item light-blue darken-4">
-            <div
-              style="height: calc(100% - 108px); min-height: calc(100% - 108px);"
-            >
-              <div class="row">
-                <div class="col s12">
-                  <h5 class="center white-text">
-                    Impact of Location
-                  </h5>
-                </div>
+            <div class="row" style="margin: 0; height: calc(100% - 85px); min-height: calc(100% - 85px);">
+              <div class="col s9" style="margin: 0; height:100%; min-height:100%;">
+                <svg id="scatterplot" style="height:100%; min-height:100%;"></svg>
               </div>
-              <div class="row" style="margin: 0; height:100%; min-height:100%;">
-                <div
-                  class="col s12"
-                  style="margin: 0; height:100%; min-height:100%;"
-                >
-                  <svg id="worldMap"></svg>
+              <div class="col s3" style="margin: 0; height:calc(100% - 50px); min-height:calc(100% - 50px);">
+                <div class="card-panel light-blue darken-2 white-text" style="height:100%; overflow: auto;">
+                  <h6>High Earners</h6>
+                  <p>
+                    While JavaScript and HTML/CSS enjoy high popularity among
+                    developers, niche programming languages such as Clojure
+                    and F# guarantee a higher salary, but also require more
+                    professional experience.
+                  </p>
+                  <h6>Entry Level</h6>
+                  <p>
+                    Programming languages such as Scala, Go, Elixir, Ruby, and
+                    Rust are more favorable for career starters.
+                  </p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <footer class="page-footer" style="padding:0; background-color:#0277bd">
-          <div class="footer-copyright">
-            <div class="container" style="width: 90%;">
-              Created by Frank Blechschmidt for CS 498 DDV (Online MCS @ UIUC)
-              <a
-                class="grey-text text-lighten-4 right"
-                target="_blank"
-                href="https://insights.stackoverflow.com/survey/2019"
-                >Based on Stack Overflow Developer Survey Results 2019</a
-              >
+        <div class="carousel-item light-blue darken-4">
+          <div style="height: calc(100% - 108px); min-height: calc(100% - 108px);">
+            <div class="row">
+              <div class="col s12">
+                <h5 class="center white-text">
+                  Impact of Location
+                </h5>
+              </div>
+            </div>
+            <div class="row" style="margin: 0; height:100%; min-height:100%;">
+              <div class="col s12" style="margin: 0; height:100%; min-height:100%;">
+                <svg id="worldMap"></svg>
+              </div>
             </div>
           </div>
-        </footer>
+        </div>
       </div>
-      <div class="col s2">
-        <h5 class="center">Filters</h5>
-        <div
-          class="card-panel blue-grey lighten-5"
-          style="padding-top: .5rem; padding-bottom: .5rem; margin: .5rem 0 .5rem 0;
-"
-        >
-          <div class="section" style="padding: 0;"><h6>Min. Responses</h6></div>
-          <div class="section">
-            <div id="responses-filter">
-              <div class="center-align">
-                <div class="preloader-wrapper small active">
-                  <div class="spinner-layer spinner-blue-only">
-                    <div class="circle-clipper left">
-                      <div class="circle"></div>
-                    </div>
-                    <div class="gap-patch">
-                      <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                      <div class="circle"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+      <footer class="page-footer" style="padding:0; background-color:#0277bd">
+        <div class="footer-copyright">
+          <div class="container" style="width: 90%;">
+            Created by Frank Blechschmidt for CS 498 DDV (Online MCS @ UIUC)
+            <a class="grey-text text-lighten-4 right" target="_blank"
+              href="https://insights.stackoverflow.com/survey/2019">Based on Stack Overflow Developer Survey Results
+              2019</a>
           </div>
         </div>
-        <div class="divider"></div>
-        <div
-          class="card-panel blue-grey lighten-5"
-          style="padding-top: .5rem; padding-bottom: .5rem; margin: .5rem 0 .5rem 0;
-"
-        >
-          <div class="section" style="padding: 0;"><h6>Age</h6></div>
-          <div class="section">
-            <div id="age-filter">
-              <div class="center-align">
-                <div class="preloader-wrapper small active">
-                  <div class="spinner-layer spinner-blue-only">
-                    <div class="circle-clipper left">
-                      <div class="circle"></div>
-                    </div>
-                    <div class="gap-patch">
-                      <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                      <div class="circle"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+      </footer>
+    </div>
+    <div class="col s2">
+      <h5 class="center">Filters</h5>
+      <div class="card-panel blue-grey lighten-5" style="padding-top: .5rem; padding-bottom: .5rem; margin: .5rem 0 .5rem 0;
+">
+        <div class="section" style="padding: 0;">
+          <h6>Min. Responses</h6>
         </div>
-        <div class="divider"></div>
-        <div
-          class="card-panel blue-grey lighten-5"
-          style="padding-top: 0.5rem; padding-bottom: 0.5rem; margin: .5rem 0 .5rem 0;"
-        >
-          <div class="section" style="padding: 0;">
-            <h6>Compensation (in $)</h6>
-          </div>
-          <div class="section">
-            <div id="compensation-filter">
-              <div class="center-align">
-                <div class="preloader-wrapper small active">
-                  <div class="spinner-layer spinner-blue-only">
-                    <div class="circle-clipper left">
-                      <div class="circle"></div>
-                    </div>
-                    <div class="gap-patch">
-                      <div class="circle"></div>
-                    </div>
-                    <div class="circle-clipper right">
-                      <div class="circle"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="divider"></div>
-        <div
-          class="card-panel blue-grey lighten-5"
-          style="padding-top: .5rem; padding-bottom: .5rem; margin: .5rem 0 .5rem 0;"
-        >
-          <div class="section" id="gender-filter" style="padding: 0;">
-            <h6>Gender</h6>
-
+        <div class="section">
+          <div id="responses-filter">
             <div class="center-align">
               <div class="preloader-wrapper small active">
                 <div class="spinner-layer spinner-blue-only">
@@ -332,53 +212,100 @@
             </div>
           </div>
         </div>
-        <div class="section center-align">
-          <a
-            class="waves-effect waves-light btn-large disabled"
-            id="reset-button"
-            ><i class="material-icons left">restore</i>Reset</a
-          >
+      </div>
+      <div class="divider"></div>
+      <div class="card-panel blue-grey lighten-5" style="padding-top: .5rem; padding-bottom: .5rem; margin: .5rem 0 .5rem 0;
+">
+        <div class="section" style="padding: 0;">
+          <h6>Age</h6>
+        </div>
+        <div class="section">
+          <div id="age-filter">
+            <div class="center-align">
+              <div class="preloader-wrapper small active">
+                <div class="spinner-layer spinner-blue-only">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div>
+                  <div class="gap-patch">
+                    <div class="circle"></div>
+                  </div>
+                  <div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+      <div class="divider"></div>
+      <div class="card-panel blue-grey lighten-5"
+        style="padding-top: 0.5rem; padding-bottom: 0.5rem; margin: .5rem 0 .5rem 0;">
+        <div class="section" style="padding: 0;">
+          <h6>Compensation (in $)</h6>
+        </div>
+        <div class="section">
+          <div id="compensation-filter">
+            <div class="center-align">
+              <div class="preloader-wrapper small active">
+                <div class="spinner-layer spinner-blue-only">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div>
+                  <div class="gap-patch">
+                    <div class="circle"></div>
+                  </div>
+                  <div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="card-panel blue-grey lighten-5"
+        style="padding-top: .5rem; padding-bottom: .5rem; margin: .5rem 0 .5rem 0;">
+        <div class="section" id="gender-filter" style="padding: 0;">
+          <h6>Gender</h6>
+
+          <div class="center-align">
+            <div class="preloader-wrapper small active">
+              <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left">
+                  <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                  <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                  <div class="circle"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="section center-align">
+        <a class="waves-effect waves-light btn-large disabled" id="reset-button"><i
+            class="material-icons left">restore</i>Reset</a>
+      </div>
     </div>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"
-      integrity="sha256-0rguYS0qgS6L4qVzANq4kjxPLtvnp5nn2nB5G1lWRv4="
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"
-      integrity="sha256-U/cHDMTIHCeMcvehBv1xQ052bPSbJtbuiw4QA9cTKz0="
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.9.7/d3.min.js"
-      integrity="sha256-D+2/goqcjnuoryb9A0rifuH0rBYS9hKOzNqG91JhAVc="
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/gh/Dogfalo/materialize@master/extras/noUiSlider/nouislider.min.js"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/wnumb/1.1.0/wNumb.min.js"
-      integrity="sha256-HT7c4lBipI1Hkl/uvUrU1HQx4WF3oQnSafPjgR9Cn8A="
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"
-      integrity="sha256-VeNaFBVDhoX3H+gJ37DpT/nTuZTdjYro9yBruHjVmoQ="
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"
-      integrity="sha256-tHoAPGoNdhIR28YHl9DWLzeRfdwigkH7OCBXMrHXhoM="
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"
-      integrity="sha256-DCW2G+HXRTaX80n/cuqXdLtWpE59kVHmSBzwPRBHe/o="
-      crossorigin="anonymous"
-    ></script>
-  <script type="text/javascript" src="/uiuc_cs_498_ddv/bundle.js"></script></body>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"
+    integrity="sha256-0rguYS0qgS6L4qVzANq4kjxPLtvnp5nn2nB5G1lWRv4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"
+    integrity="sha256-U/cHDMTIHCeMcvehBv1xQ052bPSbJtbuiw4QA9cTKz0=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.9.7/d3.min.js"
+    integrity="sha256-D+2/goqcjnuoryb9A0rifuH0rBYS9hKOzNqG91JhAVc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"
+    integrity="sha256-VeNaFBVDhoX3H+gJ37DpT/nTuZTdjYro9yBruHjVmoQ=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"
+    integrity="sha256-tHoAPGoNdhIR28YHl9DWLzeRfdwigkH7OCBXMrHXhoM=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"
+    integrity="sha256-DCW2G+HXRTaX80n/cuqXdLtWpE59kVHmSBzwPRBHe/o=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/uiuc_cs_498_ddv/bundle.js"></script></body>
+
 </html>

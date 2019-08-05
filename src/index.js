@@ -2,7 +2,6 @@ import "core-js/stable";
 import "regenerator-runtime/runtime";
 
 import Slideshow from "./slideshow";
-import "./nouislider";
 import "./styles/app.css";
 
 document.addEventListener("DOMContentLoaded", async () => {

@@ -1,8 +1,8 @@
-import DataProvider from "./dataprovider"
-import BarChart from "./barChart"
-import Scatterplot from "./scatterplot"
-import WorldMap from "./worldMap"
-import Filters from "./filters"
+import DataProvider from "./dataprovider";
+import BarChart from "./barChart";
+import Scatterplot from "./scatterplot";
+import WorldMap from "./worldMap";
+import Filters from "./filters";
 
 class Slideshow {
   async initialize() {
@@ -10,34 +10,30 @@ class Slideshow {
     this.instance = M.Carousel.init(this.element, {
       fullWidth: true,
       indicators: true,
-      noWrap: true
-    })
-    M.Tabs.init(document.querySelector(".tabs"))
+      noWrap: true,
+    });
+    M.Tabs.init(document.querySelector(".tabs"));
 
-    const data = await d3.json("data/chart.json")
-    const dataProvider = new DataProvider(data)
+    const data = await d3.json("data/chart.json");
+    const dataProvider = new DataProvider(data);
 
     // Create the charts and initialize them
-    const barChart = new BarChart()
-    barChart.initialize(data)
-    const scatterplot = new Scatterplot()
-    scatterplot.initialize(data)
+    const barChart = new BarChart();
+    barChart.initialize(dataProvider.getData());
+    const scatterplot = new Scatterplot();
+    scatterplot.initialize(dataProvider.getData());
     const worldMap = new WorldMap();
-    await worldMap.initialize(data);
+    await worldMap.initialize(dataProvider.getData());
 
     // Initialize Filters
-    this.filters = new Filters(dataProvider, [
-      barChart,
-      scatterplot,
-      worldMap
-    ]);
+    this.filters = new Filters(dataProvider, [barChart, scatterplot, worldMap]);
     this.filters.initialize();
   }
 
   async enable() {
     // const carouselElement = document.querySelector(".carousel");
     // var instance = M.Carousel.getInstance(carouselElement);
-    const {instance, filters } = this;
+    const { instance, filters } = this;
     document.addEventListener("keydown", event => {
       switch (event.key) {
         case "ArrowLeft":
@@ -64,9 +60,7 @@ class Slideshow {
     progressBar.className = "determinate";
     progressBar.setAttribute("style", "width:100%;");
 
-    document
-      .querySelector("#progress-container")
-      .classList.add("scale-out");
+    document.querySelector("#progress-container").classList.add("scale-out");
   }
 }
 

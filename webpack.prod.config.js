@@ -23,7 +23,10 @@ module.exports = {
         test: /\.html$/,
         use: [
           {
-            loader: "html-loader"
+            loader: "html-loader",
+            options: {
+              interpolate: true
+            }
           }
         ]
       },
@@ -42,7 +45,8 @@ module.exports = {
       {
         from: path.join(__dirname, "./data/chart.json"),
         to: path.join(__dirname, "./docs/data/chart.json")
-      },{
+      },
+      {
         from: path.join(__dirname, "./data/world-country-names.csv"),
         to: path.join(__dirname, "./docs/data/world-country-names.csv")
       }

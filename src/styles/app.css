@@ -98,7 +98,6 @@ svg line.limit {
 #scatterplot circle,
 #scatterplot-legend circle {
   fill: #039be5;
-  opacity: 0.8;
   stroke: #cfd8dc;
 }
 
